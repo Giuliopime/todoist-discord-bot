@@ -26,8 +26,3 @@ workflows:
   test-build-deploy:
     jobs:
       - gradle/test
-      - build-and-push-image-and-run:
-          filters:
-            branches:
-              only:
-                - test
