@@ -1,0 +1,70 @@
+openapi: 3.0.3
+info:
+  title: Discord x Todoist - OpenAPI 3.0
+  description: This is the REST api for [the Todoist Discord bot](https://todoist-discord.giuliopime.dev) (unofficial)
+  termsOfService: https://doist.com/terms-of-service
+  contact:
+    url: https://todoist-discord.giuliopime.dev/support
+  version: 1.0.0
+servers:
+  - url: https://todoist-discord.giuliopime.dev
+  - url: https://todoist-discord-staging.giuliopime.dev
+paths:
+  /todoist-oauth:
+    get:
+      tags:
+        - auth
+      summary: Redirect url for Todoist OAuth
+      operationId: 'todoist-oauth'
+      parameters:
+        - name: code
+          in: query
+          description: OAuth code
+          required: true
+          schema:
+            type: string
+        - name: state
+          in: query
+          description: OAuth state for malicious attacks prevention
+          required: true
+          schema:
+            type: string
+      responses:
+        '302':
+          description: Redirect to a frontend page containing the result of the operation
+  /support:
+    get:
+      tags:
+        - links
+      summary: Redirect url to the Discord support server
+      operationId: 'discord'
+      responses:
+        '301':
+          description: Invite url for the Discord support server
+  /todoist-oauth-success:
+    get:
+      tags:
+        - frontend
+      summary: Frontend page for a successful OAuth flow
+      operationId: 'todoist-oauth-success'
+      responses:
+        '200':
+          description: An html page
+  /todoist-oauth-failure:
+    get:
+      tags:
+        - frontend
+      summary: Frontend page for a failed OAuth flow
+      operationId: 'todoist-oauth-failure'
+      responses:
+        '200':
+          description: An html page
+  /:
+    get:
+      tags:
+        - frontend
+      summary: Frontend page for the bot
+      operationId: 'index'
+      responses:
+        '200':
+          description: An html page

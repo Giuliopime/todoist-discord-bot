@@ -1,22 +1,60 @@
+val ktorVersion: String = "2.2.3"
+val kmongoVersion: String = "4.8.0"
+val kotlinVersion: String = "1.8.0"
+
 plugins {
+    application
     kotlin("jvm") version "1.8.0"
+    kotlin("plugin.serialization") version "1.8.0"
+    id("io.ktor.plugin") version "2.2.3"
 }
 
 group = "dev.giuliopime"
-version = "1.0-SNAPSHOT"
+version = "1.0.0"
+application {
+    mainClass.set("dev.giuliopime.LauncherKt")
+}
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
+    implementation("io.github.cdimascio:dotenv-kotlin:6.3.1")
+
+    // implementation("redis.clients:jedis:4.3.1")
+
+    implementation("org.litote.kmongo:kmongo-serialization:$kmongoVersion")
+
+    implementation("io.ktor:ktor-server-swagger:$ktorVersion")
+    implementation("io.ktor:ktor-server-resources:$ktorVersion")
+    // implementation("io.ktor:ktor-server-auth:$ktorVersion")
+    implementation("io.ktor:ktor-server-content-negotiation:$ktorVersion")
+    implementation("io.ktor:ktor-server-status-pages:$ktorVersion")
+    implementation("io.ktor:ktor-server-call-logging:$ktorVersion")
+    implementation("io.ktor:ktor-server-netty-jvm:2.1.3")
+    implementation("io.ktor:ktor-server-core-jvm:2.1.3")
+
+    implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
+    implementation("io.ktor:ktor-client-logging:$ktorVersion")
+    implementation("io.ktor:ktor-client-core-jvm:$ktorVersion")
+    implementation("io.ktor:ktor-client-apache:$ktorVersion")
+
+    implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
+
+    implementation("io.github.microutils:kotlin-logging-jvm:3.0.4")
+    implementation("ch.qos.logback:logback-classic:1.4.5")
+
     testImplementation(kotlin("test"))
+    testImplementation("org.junit.jupiter:junit-jupiter:5.8.1")
 }
 
 tasks.test {
     useJUnitPlatform()
 }
 
-kotlin {
-    jvmToolchain(8)
+ktor {
+    fatJar {
+        archiveFileName.set("todoist-discord.jar")
+    }
 }
