@@ -17,9 +17,13 @@ application {
 
 repositories {
     mavenCentral()
+    maven("https://jitpack.io/")
 }
 
 dependencies {
+    implementation("net.dv8tion:JDA:5.0.0-beta.4")
+    implementation("com.github.minndevelopment:jda-ktx:17eb77a1")
+
     implementation("io.github.cdimascio:dotenv-kotlin:6.3.1")
 
     // implementation("redis.clients:jedis:4.3.1")

@@ -3,6 +3,7 @@ package dev.giuliopime
 import io.github.cdimascio.dotenv.Dotenv
 import io.github.cdimascio.dotenv.dotenv
 import mu.KotlinLogging
+import net.dv8tion.jda.api.entities.Activity
 import org.slf4j.event.Level
 
 private val log = KotlinLogging.logger {  }
@@ -26,6 +27,9 @@ object Env {
     lateinit var todoist_client_id: String
     lateinit var todoist_client_secret: String
 
+    lateinit var discord_api_key: String
+    var discord_activity_type: Int = Activity.ActivityType.WATCHING.key
+    var discord_activity_name: String = "your tasks"
     lateinit var discord_support_server_invite_url: String
 
     fun loadEnv() {
@@ -46,6 +50,9 @@ object Env {
         todoist_client_id = getStringFromEnv("todoist.client.id")
         todoist_client_secret = getStringFromEnv("todoist.client.secret")
 
+        discord_api_key = getStringFromEnv("discord.api.key")
+        discord_activity_type = getIntFromEnv("discord.activity.type")
+        discord_activity_name = getStringFromEnv("discord.activity.name")
         discord_support_server_invite_url = getStringFromEnv("discord.support.server.invite.url")
     }
 

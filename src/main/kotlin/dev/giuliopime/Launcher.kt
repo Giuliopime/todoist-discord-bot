@@ -1,7 +1,7 @@
 package dev.giuliopime
 
 import io.ktor.server.application.Application
-import dev.giuliopime.core.clients.MongoClient
+import dev.giuliopime.core.db.MongoClient
 import ch.qos.logback.classic.Level
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
@@ -14,10 +14,11 @@ import dev.giuliopime.api.plugins.configureMonitoring
 import dev.giuliopime.api.plugins.configureSerialization
 import dev.giuliopime.api.plugins.configureStatusPages
 import dev.giuliopime.api.routing.configureRouting
+import dev.giuliopime.discord.TodoistBot
 
 private val log = KotlinLogging.logger {  }
 
-fun main() {
+suspend fun main() {
     /**
      * CONFIGURE LOGGING
      */
@@ -38,14 +39,14 @@ fun main() {
      */
     Runtime.getRuntime().addShutdownHook(
         Thread {
-            MongoClient.close()
+            TodoistBot.shutdown("Shutdown manually via process manager or IDE")
         }
     )
 
     /**
      * LAUNCH DISCORD BOT
      */
-
+    TodoistBot.start()
 
     /**
      * READY TO LAUNCH API? LAUNCH!

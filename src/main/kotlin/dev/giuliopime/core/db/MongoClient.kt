@@ -1,4 +1,4 @@
-package dev.giuliopime.core.clients
+package dev.giuliopime.core.db
 
 import com.mongodb.client.MongoClient
 import com.mongodb.client.MongoDatabase
